@@ -6,7 +6,7 @@ export interface TodoHookState{
     addToDo: (title: string) => void;
     completeTodo: (todoId: number) => void;
     deleteTodo: (todoId: number) => void;
-
+    deleteCompletedTodos : () => void;
 }
 export default function useToDoHook():TodoHookState {
     const [todos, setTodos] = useState<Todo[]>([]);
@@ -28,5 +28,9 @@ export default function useToDoHook():TodoHookState {
     function deleteTodo(todoId:number){
         setTodos(todos.filter(t => t.id !== todoId));
       }
-      return {todos,addToDo,completeTodo,deleteTodo};
+
+    function deleteCompletedTodos(){
+      setTodos(todos.filter(t => !t.isDone));
+    }
+      return {todos,addToDo,completeTodo,deleteTodo,deleteCompletedTodos};
 }

@@ -7,13 +7,14 @@ interface TodoContext {
     todos:Todo[],
     completeTodo:(todoId:number)=>void;
     deleteTodo:(todoId:number)=>void;
+    deleteCompletedTodos:() => void;
 }
-const todoContext = React.createContext<TodoContext>({todos:[],completeTodo:()=>{},deleteTodo:()=>{}});
+const todoContext = React.createContext<TodoContext>({todos:[],completeTodo:()=>{},deleteTodo:()=>{}, deleteCompletedTodos:()=>{}});
 
 export default function TodoApp() {
-  const {todos,addToDo,completeTodo,deleteTodo} = useToDoHook();
+  const {todos,addToDo,completeTodo,deleteTodo,deleteCompletedTodos} = useToDoHook();
   return (
-    <todoContext.Provider value={{todos:todos,completeTodo:completeTodo, deleteTodo:deleteTodo}}>
+    <todoContext.Provider value={{todos:todos,completeTodo:completeTodo, deleteTodo:deleteTodo,deleteCompletedTodos:deleteCompletedTodos}}>
       <AddToDo addToDo={addToDo}></AddToDo>
       <TodoList todos = {todos}></TodoList>
     </todoContext.Provider>
@@ -45,6 +46,7 @@ interface TodolistProps{
 }
 function TodoList({todos}:TodolistProps) {
     let {filteredTodos, displayAll,showActiveOnly,showCompleted} = useTodoFilterHook(todos);
+    let {deleteCompletedTodos} = useContext(todoContext);
   return (
     <div>
       {filteredTodos?.map((todo) => (
@@ -53,6 +55,7 @@ function TodoList({todos}:TodolistProps) {
       <button onClick = {displayAll}>All</button>
       <button onClick = {showActiveOnly}>Active</button>
         <button onClick={showCompleted}>Completed</button>
+        <button onClick = {()=>{deleteCompletedTodos()}}>Clear Completed</button>
     </div>
   );
 }
