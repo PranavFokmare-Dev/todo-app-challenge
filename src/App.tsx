@@ -4,6 +4,7 @@ import './App.css';
 import TodoApp from './components/Todo';
 import TodoNavBar from './components/TodoNavBar';
 import styled from 'styled-components';
+import ThemeHandler from './components/ThemeHandler';
 var themeContext= React.createContext<string>("dark");
 
 
@@ -26,8 +27,10 @@ function App() {
   return (
     <Container>
       <TodoContainer>
-        <TodoNavBar></TodoNavBar>
-        <TodoApp></TodoApp>
+        <ThemeHandler>
+          <TodoNavBar/>
+          <TodoApp/>
+        </ThemeHandler>
       </TodoContainer>
     </Container>
 

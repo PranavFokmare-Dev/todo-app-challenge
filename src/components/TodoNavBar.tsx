@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components';
 import sunicon from '../images/icon-sun.svg'
 import moonicon from '../images/icon-moon.svg'
+import { themeContext, ThemeContextInterface, ThemeEnum } from './ThemeHandler';
 
 const FlexContainer  = styled.div`
   display:flex;
@@ -20,16 +21,13 @@ const TodoHeader = styled.div`
 `
 
 export default function TodoNavBar() {
-    const [theme,setTheme] = useState<string>("light");
-    function toggleTheme(){
-        console.log("TOGGLED THEME");
-        return (theme === "light")?"dark":"light";
-    }
-    const icon = (theme ==="light")?moonicon:sunicon;
+    const {theme,toggleTheme} = useContext<ThemeContextInterface>(themeContext);
+
+    const icon = (theme ===ThemeEnum.Light)?moonicon:sunicon;
   return (
     <FlexContainer>
         <TodoHeader>T O D O</TodoHeader>
-        <Icon onClick = {() => {setTheme(toggleTheme())}} src = {icon}/>
+        <Icon onClick = {() => {toggleTheme()}} src = {icon}/>
     </FlexContainer>
   )
 }
