@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import useToDoHook from "../hooks/todoHook";
 import useTodoFilterHook from "../hooks/useTodoFilterHook";
 import { Todo } from "../Models";
-
+import crossIcon from "../images/icon-cross.svg";
+import styled from "styled-components";
 interface TodoContext {
     todos:Todo[],
     completeTodo:(todoId:number)=>void;
@@ -59,17 +60,43 @@ function TodoList({todos}:TodolistProps) {
     </div>
   );
 }
+
+
 interface DisplayTodoProps {
   todo: Todo;
 }
+let TodoFlexBox  = styled.div`
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid   hsl(233, 14%, 35%);
+  padding:0.5em;
+  background-color:hsl(235, 24%, 19%);
+  color:white;
+`
+const CrossIcon = styled.img`
+  height:1em;
+`
+const RadioBtnIcon = styled.section`
+  border:1px solid white;
+  height:1em;
+  border-radius:100%;
+  width:1em;
+`
+const TodoLeftGroup = styled.div`
+  display:flex;
+  &>button{
+    padding:0.25em;
+  }
+`
 function DisplayTodo({ todo }: DisplayTodoProps) {
     const todoState = useContext(todoContext);
 
-  return( <div>
-    <hr></hr>
-    <button disabled = {todo.isDone} onClick = {()=>todoState?.completeTodo(todo.id)}>Complete</button>
-    <section>{todo.title}</section>
-    <button onClick = {() => todoState?.deleteTodo(todo.id)}>Delete</button>
-    <hr></hr>
-  </div>);
+  return( 
+  <TodoFlexBox>
+    <TodoLeftGroup>
+      <RadioBtnIcon onClick = {()=>todoState?.completeTodo(todo.id)}></RadioBtnIcon>
+      <section>{todo.title}</section>
+    </TodoLeftGroup>
+    <CrossIcon src = {crossIcon} onClick = {() => todoState?.deleteTodo(todo.id)} />
+  </TodoFlexBox>);
 }
