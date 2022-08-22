@@ -4,7 +4,7 @@ import { Todo } from '../Models';
 export interface TodoHookState{
     todos: Todo[];
     addToDo: (title: string) => void;
-    completeTodo: (todoId: number) => void;
+    toggleCompleteTodoStatus: (todoId: number) => void;
     deleteTodo: (todoId: number) => void;
     deleteCompletedTodos : () => void;
 }
@@ -19,9 +19,9 @@ export default function useToDoHook():TodoHookState {
       });
       setTodos(newTodos);
     }
-    function completeTodo(todoId:number){
+    function toggleCompleteStatus(todoId:number){
       setTodos(todos.map(t => 
-          (t.id === todoId)?{id:t.id, title:t.title, isDone:true}:
+          (t.id === todoId)?{id:t.id, title:t.title, isDone:!t.isDone}:
           t
           ));
     }
@@ -32,5 +32,5 @@ export default function useToDoHook():TodoHookState {
     function deleteCompletedTodos(){
       setTodos(todos.filter(t => !t.isDone));
     }
-      return {todos,addToDo,completeTodo,deleteTodo,deleteCompletedTodos};
+      return {todos,addToDo,toggleCompleteTodoStatus: toggleCompleteStatus,deleteTodo,deleteCompletedTodos};
 }
