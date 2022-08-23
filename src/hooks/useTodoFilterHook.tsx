@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Todo } from "../Models";
 
 export default function useTodoFilterHook(todos: Todo[]) {

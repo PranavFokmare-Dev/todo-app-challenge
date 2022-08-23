@@ -1,15 +1,13 @@
 import React, { useContext } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import TodoApp from "./components/Todo";
 import TodoNavBar from "./components/TodoNavBar";
 import styled from "styled-components";
-import ThemeHandler, {
+import {
   IThemeStyles,
   themeContext,
   ThemeContextInterface,
 } from "./components/ThemeHandler";
-import backgroundImg from "./images/bg-desktop-dark.jpg";
 import GlobalStyle from "./globalStyles";
 
 interface containerProps {

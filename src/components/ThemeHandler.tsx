@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import darkBgImg from "../images/bg-desktop-dark.jpg";
 import lightBgImg from "../images/bg-desktop-light.jpg";
 import sunicon from "../images/icon-sun.svg";

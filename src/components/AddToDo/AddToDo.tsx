@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { Todo } from "../../Models";
 import { RadioBtnIcon } from "../DisplayTodo/DisplayTodo.styled";
 import { ThemeContextInterface, themeContext } from "../ThemeHandler";
 import { InputDiv, ToDoInput } from "./AddToDo.styled";
