@@ -1,6 +1,5 @@
-
-export interface Todo{
-    id:number;
-    title:string;
-    isDone:boolean;
+export interface Todo {
+  id: number;
+  title: string;
+  isDone: boolean;
 }

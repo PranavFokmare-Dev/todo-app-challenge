@@ -4,7 +4,12 @@ import { Todo } from "../../Models";
 import { DisplayTodo } from "../DisplayTodo/DisplayTodo";
 import { themeContext, ThemeContextInterface } from "../ThemeHandler";
 import { todoContext } from "../Todo";
-import { ALink, BtnsContainer, ItemsLeft, TodoListContainer } from "./TodoList.styled";
+import {
+  ALink,
+  BtnsContainer,
+  ItemsLeft,
+  TodoListContainer,
+} from "./TodoList.styled";
 
 interface TodolistProps {
   todos: Todo[];
@@ -12,9 +17,9 @@ interface TodolistProps {
 export function TodoList({ todos }: TodolistProps) {
   let { filteredTodos, displayAll, showActiveOnly, showCompleted } =
     useTodoFilterHook(todos);
-    const t = useContext<ThemeContextInterface>(themeContext);
+  const t = useContext<ThemeContextInterface>(themeContext);
   return (
-    <TodoListContainer styles = {t.styles}>
+    <TodoListContainer styles={t.styles}>
       {filteredTodos?.map((todo) => (
         <DisplayTodo todo={todo}></DisplayTodo>
       ))}
@@ -34,27 +39,56 @@ interface BtnsProps {
   showCompleted: () => void;
 }
 
-enum btnEnum{
-    All="all",
-    Active ="active",
-    Completed = "completed"
+enum btnEnum {
+  All = "all",
+  Active = "active",
+  Completed = "completed",
 }
 
 function Btns({ todos, displayAll, showActiveOnly, showCompleted }: BtnsProps) {
   let { deleteCompletedTodos } = useContext(todoContext);
   const activeTodosLeft = todos.filter((t) => !t.isDone).length;
-  const [activeBtn,setActiveBtn] = useState<btnEnum>(btnEnum.All);
+  const [activeBtn, setActiveBtn] = useState<btnEnum>(btnEnum.All);
   const t = useContext<ThemeContextInterface>(themeContext);
   return (
     <BtnsContainer>
-      <ItemsLeft styles = {t.styles}>{activeTodosLeft} items left</ItemsLeft>
+      <ItemsLeft styles={t.styles}>{activeTodosLeft} items left</ItemsLeft>
       <div>
-        <ALink styles= {t.styles} isActive = {activeBtn === btnEnum.All} onClick={()=>{displayAll();setActiveBtn(btnEnum.All);}}>All</ALink>
-        <ALink styles= {t.styles} isActive = {activeBtn === btnEnum.Active}onClick={()=>{showActiveOnly(); setActiveBtn(btnEnum.Active);}}>Active</ALink>
-        <ALink styles= {t.styles} isActive = {activeBtn === btnEnum.Completed} onClick={()=>{showCompleted(); setActiveBtn(btnEnum.Completed);}}>Completed</ALink>
+        <ALink
+          styles={t.styles}
+          isActive={activeBtn === btnEnum.All}
+          onClick={() => {
+            displayAll();
+            setActiveBtn(btnEnum.All);
+          }}
+        >
+          All
+        </ALink>
+        <ALink
+          styles={t.styles}
+          isActive={activeBtn === btnEnum.Active}
+          onClick={() => {
+            showActiveOnly();
+            setActiveBtn(btnEnum.Active);
+          }}
+        >
+          Active
+        </ALink>
+        <ALink
+          styles={t.styles}
+          isActive={activeBtn === btnEnum.Completed}
+          onClick={() => {
+            showCompleted();
+            setActiveBtn(btnEnum.Completed);
+          }}
+        >
+          Completed
+        </ALink>
       </div>
 
-      <ALink styles= {t.styles} isActive = {false}
+      <ALink
+        styles={t.styles}
+        isActive={false}
         onClick={() => {
           deleteCompletedTodos();
         }}
